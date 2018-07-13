@@ -1,21 +1,22 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Register from '@/components/Register'
+/*eslint-disable */
+import Vue from "vue";
+import Router from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
+import Register from "@/components/Register";
 
-Vue.use(Router)
+Vue.use(Router); // eslint-disable-line no-use-before-define
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
+      path: "/",
+      name: "HelloWorld",
       component: HelloWorld
     },
     {
-      path: '/register',
-      name: 'register',
+      path: "/register",
+      name: "register",
       component: Register
     }
   ]
-})
+});

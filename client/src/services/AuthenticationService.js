@@ -1,7 +1,9 @@
-import Api from '@/services/Api'
+/*eslint-disable */
+import Api from "@/services/Api";
 
 export default {
-    register (credentials) {
-        return Api().post('register', credentials)
-    }
-}
+  register(credentials) {
+    console.log("post");
+    return Api().post("register", credentials);
+  }
+};

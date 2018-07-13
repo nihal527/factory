@@ -8,33 +8,33 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthenticationService.js'
+/*eslint-disable */
+import AuthenticationService from "@/services/AuthenticationService.js";
 
 export default {
-  data () {
+  data() {
     return {
-        email: '',
-        password: ''
-    }
+      email: "",
+      password: ""
+    };
   },
   watch: {
-      email (value) {
-          console.log('email : ', value)
-      }
+    email(value) {
+      console.log("email : ", value);
+    }
   },
   methods: {
-    async  register () {
-        const response = await AuthenticationService.register({
-            email: this.email,
-            password: this.password
-        })
-        console.log(response.data)
+    async register() {
+      const response = await AuthenticationService.register({
+        email: this.email,
+        password: this.password
+      });
+      console.log(response.data);
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
