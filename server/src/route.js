@@ -1,8 +1,11 @@
+/*eslint-disable */
+const AuthenticationController = require("./controllers/AuthenticationController");
+const AuthenticationControllerPolicy = require("./policy/AuthenticationControllerPolicy");
+
 module.exports = app => {
-  app.post("/register", (req, res) => {
-    res.send({
-      message: req.body.email + " Kişi Kaydedildi",
-      req: req.body
-    });
-  });
+  app.post(
+    "/register",
+    AuthenticationControllerPolicy.register,
+    AuthenticationController.register
+  );
 };

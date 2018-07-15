@@ -1,10 +1,52 @@
 <template>
-  <div>
-      <h1>Register page</h1>
-      <input type="email" name="email" placeholder="email" v-model="email"><br>
-      <input type="password" name="password" placeholder="password" v-model="password"><br>
-      <button @click="register">Register</button>
-  </div>
+<div id="app">
+  <v-app id="inspire">
+    <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-flex xs6 offset-xs3>
+          <div class="white elevation-2">
+            <v-toolbar flat dense class="green" dark>
+              <v-toolbar-title>Kayıt</v-toolbar-title>
+            </v-toolbar>
+            <div>
+              <v-form ref="form" lazy-validation>
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="Name"
+                  required
+                ></v-text-field>
+                <input type="email" name="email" placeholder="email" v-model="email"><br>
+                <input type="password" name="password" placeholder="password" v-model="password"><br>
+                <div class="error" v-html="error"></div>
+                <v-btn class="blue-grey lighten-2" @click="register">Register</v-btn>
+              </v-form>
+            </div>
+          </div>
+          
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-app>
+</div>
+  <!-- <v-layout column>
+    <v-flex xs6 offset-xs3>
+      <div class="white elevation-2">
+        <v-toolbar flat dense class="cyan" dark>
+          <v-toolbar-title>Kayıt</v-toolbar-title>
+        </v-toolbar>
+      
+        <div class="pl-4 pr-4 pt-2 pb-2">
+          <input type="email" name="email" placeholder="email" v-model="email"><br>
+          <input type="password" name="password" placeholder="password" v-model="password"><br>
+          <div class="error" v-html="error"></div>
+          <button @click="register">Register</button>
+        </div>
+      </div>
+    </v-flex>
+  </v-layout> -->
+
+  <!--  -->
 </template>
 
 <script>
@@ -15,7 +57,12 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+      password: "",
+      error: null
     };
   },
   watch: {
@@ -25,11 +72,14 @@ export default {
   },
   methods: {
     async register() {
-      const response = await AuthenticationService.register({
-        email: this.email,
-        password: this.password
-      });
-      console.log(response.data);
+      try {
+        await AuthenticationService.register({
+          email: this.email,
+          password: this.password
+        });
+      } catch (error) {
+        this.error = error.response.data.error;
+      }
     }
   }
 };
@@ -37,4 +87,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.error {
+  color: red;
+}
 </style>
