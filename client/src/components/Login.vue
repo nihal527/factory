@@ -8,8 +8,8 @@
               <v-toolbar-title>Kayıt</v-toolbar-title>
             </v-toolbar>
             <div>
-              <div id="app">
-                <img src="../assets/nbglogo.jpg"> 
+              <div>
+                <img class="logo" src="../assets/nbglogo.jpg"> 
               </div>
               <v-form ref="form" lazy-validation class="registerForm">
                 <v-text-field
@@ -18,16 +18,7 @@
                   label="Mail"
                   required
                 ></v-text-field>
-                <v-text-field
-                  v-model="userName"
-                  label="Ad"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="userSurname"
-                  label="Soyad"
-                  required
-                ></v-text-field>
+                
                 <v-text-field
                   v-model="password"
                   :append-icon="show ? 'visibility_off' : 'visibility'"
@@ -39,10 +30,9 @@
                   counter
                   @click:append="show = !show"
                 ></v-text-field>
-                <!-- <input type="email" name="email" placeholder="email" v-model="email"><br> -->
-                <!-- <input type="password" name="password" placeholder="password" v-model="password"><br> -->
+               
                 <div class="error" v-html="error"></div>
-                <v-btn class="blue-grey lighten-4" @click="register">Register</v-btn>
+                <v-btn class="blue-grey lighten-4" @click="login">Login</v-btn>
                 <v-btn class="blue-grey lighten-4" @click="clear">clear</v-btn>
               </v-form>
             </div>
@@ -73,9 +63,7 @@ export default {
       },
       show: false,
       password: "",
-      error: null,
-      userSurname: "",
-      userName: ""
+      error: null
     };
   },
   watch: {
@@ -84,16 +72,15 @@ export default {
     }
   },
   methods: {
-    async register() {
+    async login() {
       try {
-        await AuthenticationService.register({
+        await AuthenticationService.login({
           email: this.email,
-          password: this.password,
-          userName: this.userName,
-          userSurname: this.userSurname
+          password: this.password
         });
       } catch (error) {
-        this.error = error.response.data.error;
+        console.log(error.response);
+        // this.error = error.response.data.error;
       }
     },
     clear() {
@@ -118,5 +105,10 @@ export default {
   display: flex;
   justify-content: center;
   background-color: #29c15d !important;
+}
+.logo {
+  margin-top: 30px;
+  width: 30%;
+  height: 30%;
 }
 </style>

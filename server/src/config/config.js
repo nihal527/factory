@@ -9,6 +9,9 @@ module.exports = {
       dialect: process.env.DIALECT || "sqlite",
       host: process.env.HOST || "localhost",
       storage: "./factory.sqlite"
+    },
+    authentication: {
+      jwtSecret: process.env.JWT_SECRET || "secret"
     }
   }
 };
